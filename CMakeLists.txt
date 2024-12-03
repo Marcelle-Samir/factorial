@@ -17,7 +17,6 @@ find_package(Protobuf REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
-
 set(PROTOBUF_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/protos")
 file(MAKE_DIRECTORY "${PROTOBUF_GENERATED_DIR}")
 include_directories(${PROTOBUF_GENERATED_DIR})
@@ -49,7 +48,7 @@ set(SOURCES
     src/main.cpp
     ${PROTO_SRCS}
     ${GRPC_SRCS}
-    )
+)
 
 add_executable(gRPC_Task ${SOURCES})
 
@@ -63,3 +62,10 @@ target_link_libraries(gRPC_Task
     pthread)
 
 target_include_directories(gRPC_Task PRIVATE ${CONAN_INCLUDE_DIRS})
+
+# Add custom target to run the application
+add_custom_target(run
+    COMMAND $<TARGET_FILE:gRPC_Task>
+    DEPENDS gRPC_Task
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+)
