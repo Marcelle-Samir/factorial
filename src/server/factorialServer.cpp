@@ -27,7 +27,7 @@ class MathServiceImplementation final : public MathTest::Service {
     } 
 };
 
-void Run() {
+void myRun() {
     std::string address("0.0.0.0:5000");
     MathServiceImplementation service;
 
@@ -43,7 +43,7 @@ void Run() {
 }
 
 int serverMain(int argc, char** argv) {
-    Run();
+    myRun();
 
     return 0;
 }

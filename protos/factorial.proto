@@ -1,20 +1,19 @@
 syntax = "proto3";
 
-package factorial;
+package mathtest;
 
-// Defines the service
-service factorialTest {
-    // Function invoked to send the request
-    rpc sendRequest (factorialRequest) returns (factorialReply) {}
+// The request message containing the input values.
+message MathRequest {
+  int32 a = 1;
+  int32 b = 2;
 }
 
-// The request message containing requested numbers
-message factorialRequest {
-    int32 a = 1;
-    int32 b = 2;
+// The reply message containing the result.
+message MathReply {
+  int32 result = 1;
 }
 
-// The response message containing response
-message factorialReply {
-    int32 result = 1;
+// The MathTest service definition.
+service MathTest {
+  rpc sendRequest (MathRequest) returns (MathReply);
 }
