@@ -10,26 +10,56 @@ void FactorialClientrun() {
 
     int response;
 
-    int a = 5;
+    int a;
 
-    response = client.sendRequest(a);
-    if (response > 0) {
-    std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+    while (true) {
+
+        std::string input;
+        std::cout << "Enter a number to compute it's factorial:     ";
+        std::getline(std::cin, input); // Read the entire line as a string
+
+        // Convert the string to an integer
+        std::stringstream ss(input);
+        if (ss >> a) {
+
+            response = client.sendRequest(a);
+            if (response > 0) {
+                std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+            }
+
+        } else {
+
+            std::cout << "Invalid integer input.\n";
+
+        }
+
     }
 
-    a = 10;
+    // response = client.sendRequest(a);
+    // if (response > 0) {
+    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+    // }
 
-    response = client.sendRequest(a);
-    if (response > 0) {
-    std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    }
+    // a = 10;
 
-    a = -2;
+    // response = client.sendRequest(a);
+    // if (response > 0) {
+    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+    // }
 
-    response = client.sendRequest(a);
-    if (response > 0) {
-    std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    }
+    // a = -2;
+
+    // response = client.sendRequest(a);
+    // if (response > 0) {
+    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+    // }
+
+    // a = 0;
+
+    // response = client.sendRequest(a);
+    // if (response > 0) {
+    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
+    // }
 
 }
 
