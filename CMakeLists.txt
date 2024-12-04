@@ -20,6 +20,8 @@ find_package(Threads REQUIRED)
 set(PROTOBUF_GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/protos")
 file(MAKE_DIRECTORY "${PROTOBUF_GENERATED_DIR}")
 include_directories(${PROTOBUF_GENERATED_DIR})
+include_directories(include/server)
+include_directories(include/client)
 
 set(_PROTOBUF_PROTOC $<TARGET_FILE:protobuf::protoc>)
 set(_GRPC_CPP_PLUGIN_EXECUTABLE $<TARGET_FILE:gRPC::grpc_cpp_plugin>)
