@@ -4,7 +4,7 @@
 class FactorialClient {
     public:
         FactorialClient(std::shared_ptr<grpc::Channel> channel);
-        int sendRequest(int a);
+        int sendRequest(std::string a);
         void run ();
 
     private:

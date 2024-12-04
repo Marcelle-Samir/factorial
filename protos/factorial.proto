@@ -9,7 +9,7 @@ message MathRequest {
 }
 
 message FactorialRequest {
-  int32 a = 1;
+  string  a = 1;
 }
 
 // The reply message containing the result.

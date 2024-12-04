@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <grpcpp/grpcpp.h>
 #include "factorial.grpc.pb.h"
 #include "factorialServer.hpp"
@@ -18,11 +19,31 @@ int factorialCalc (int n) {
     return returnVal;
 }
 
+FactorialServer::FactorialServer(std::string address)
+    : address(address) {}
+
 grpc::Status FactorialServer::sendRequest(grpc::ServerContext* context, const factorial::FactorialRequest* request, factorial::FactorialReply* reply) {
 
-        int a = request->a();
-        reply->set_result(factorialCalc(a));
-        return grpc::Status::OK;
+    grpc::Status returnVal;
+    std::string a = request->a();
+    int input;
+
+    // Convert the string to an integer
+    std::stringstream ss(a);
+    if (ss >> input && ss.eof()) {
+
+        reply->set_result(factorialCalc(input));
+        returnVal = grpc::Status::OK;
+
+
+    } else {
+
+        std::cout << "Invalid integer input.\n";
+        returnVal = grpc::Status(grpc::StatusCode::INTERNAL, "The input string can not be converted into a number.");
+
+    }
+    
+    return returnVal;
 
 }
 

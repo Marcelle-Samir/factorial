@@ -8,7 +8,7 @@ FactorialClient::FactorialClient(std::shared_ptr<grpc::Channel> channel)
     : stub_(factorial::FactorialService::NewStub(channel)) {}
 
 
-int FactorialClient::sendRequest(int a) {
+int FactorialClient::sendRequest(std::string a) {
     factorial::FactorialRequest request;
 
     request.set_a(a);

@@ -7,10 +7,7 @@ void FactorialClientrun() {
 
     std::string address("0.0.0.0:5000");
     FactorialClient client(grpc::CreateChannel(address, grpc::InsecureChannelCredentials()));
-
     int response;
-
-    int a;
 
     while (true) {
 
@@ -18,54 +15,20 @@ void FactorialClientrun() {
         std::cout << "Enter a number to compute it's factorial:     ";
         std::getline(std::cin, input); // Read the entire line as a string
 
-        // Convert the string to an integer
-        std::stringstream ss(input);
-        if (ss >> a) {
+        response = client.sendRequest(input);
+        if (response > 0) {
 
-            response = client.sendRequest(a);
-            if (response > 0) {
-                std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-            }
-
-        } else {
-
-            std::cout << "Invalid integer input.\n";
+            std::cout << "Answer received = " << response << std::endl;
 
         }
 
     }
 
-    // response = client.sendRequest(a);
-    // if (response > 0) {
-    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    // }
-
-    // a = 10;
-
-    // response = client.sendRequest(a);
-    // if (response > 0) {
-    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    // }
-
-    // a = -2;
-
-    // response = client.sendRequest(a);
-    // if (response > 0) {
-    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    // }
-
-    // a = 0;
-
-    // response = client.sendRequest(a);
-    // if (response > 0) {
-    //     std::cout << "Answer received: factorial of " << a <<  " = " << response << std::endl;
-    // }
-
 }
 
 int main(int argc, char** argv) {
 
-    FactorialServer server;
+    FactorialServer server("0.0.0.0:5000");
 
     // Threads for server and client
     std::thread serverThread([&server]() {server.run();});
